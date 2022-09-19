@@ -1,0 +1,44 @@
+{
+  "name": "gym-management-api",
+  "version": "1.0.0",
+  "description": "API for gym management",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "./node_modules/.bin/sequelize db:migrate",
+    "seed": "./node_modules/.bin/sequelize db:seed:all",
+    "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/PratikAmatya/oks-foundation-api.git"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "Pratik Amatya",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "http-status": "^1.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.3",
+    "rotating-file-stream": "^3.0.2",
+    "sequelize": "^6.12.0-alpha.1",
+    "sequelize-cli": "^6.3.0",
+    "uuid": "^8.3.2"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/PratikAmatya/oks-foundation-api/issues"
+  },
+  "homepage": "https://gitlab.com/PratikAmatya/oks-foundation-api#readme"
+}

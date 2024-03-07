@@ -1,52 +1,35 @@
-/* Module Dependencies. */
-const cors = require("cors");
-
-const express = require("express");
-
-const logger = require("morgan");
-
-const httpStatus = require("http-status");
-
-require("dotenv").config({ path: "./.env" });
-
-const errorHandler = require("errorhandler");
-
-const jwt = require("jsonwebtoken");
+// * Import Module Dependencies
+const cors = require('cors');
+const express = require('express');
+const logger = require('morgan');
+require('dotenv').config({ path: './.env' });
+const errorHandler = require('errorhandler');
+const jwt = require('jsonwebtoken');
 
 /* Create Express Server. */
 const app = express();
 
 app.use(cors());
 
-var accessLogStream = rfs.createStream("access.log", {
-  interval: "1d", // rotate daily
-  path: path.join(__dirname, "log"),
-  compress: "gzip",
-  maxFiles: 7,
-});
-// var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-app.use(logger("combined", { stream: accessLogStream }));
+app.use(logger('tiny'));
 
 /* Express Configuration. */
-app.set("port", process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* Primary App Routes. */
-app.get("/", (_req, res) => {
+app.get('/', (_req, res) => {
   res.status(httpStatus.OK).json({
     data: {
-      message: "API endpoints for .",
+      message: 'API endpoints for .',
     },
   });
 });
 
-/* API Route for login, register */
-
-// jwt
 app.use((req, res, next) => {
-  let token = req.headers["x-access-token"] || req.headers.authorization; // Express headers are auto converted to lowercase
-  if (token && token.startsWith("Bearer ")) {
+  let token = req.headers['x-access-token'] || req.headers.authorization; // Express headers are auto converted to lowercase
+  if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
   }
   if (token) {
@@ -54,7 +37,7 @@ app.use((req, res, next) => {
       if (err) {
         res.status(403).json({
           success: false,
-          message: "Token is not valid",
+          message: 'Token is not valid',
         });
       } else {
         req.decoded = decoded;
@@ -63,40 +46,30 @@ app.use((req, res, next) => {
     });
   } else {
     res.status(403).json({
-      error: "Auth Token is not supplied",
+      error: 'Auth Token is not supplied',
     });
   }
 });
 
-/* API endpoints for admin. */
+/**
+ * * Error Handler. Provides full stack - disabled from production
+ */
+if (process.env.NODE_ENV !== 'production') {
+  app.use(errorHandler());
+}
 
 app.use((err, _req, res, next) => {
   if (!err) {
     next();
     return;
   }
-  const errObj = _.pick(err, "message", "meta.url");
-  let { statusCode } = err;
 
-  if (!statusCode) {
-    statusCode =
-      err.constructor.name === "AssertionError"
-        ? httpStatus.BAD_REQUEST
-        : httpStatus.BAD_GATEWAY;
-  }
-
-  res.status(statusCode).json(errObj);
+  return res
+    .status(err?.statusCode || err?.status || 500)
+    .json({ message: err?.message || 'Something Went Wrong' });
 });
 
-/**
- * Error Handler. Provides full stack - remove from production
- * Morgan Logger.
- */
-if (process.env.NODE_ENV !== "production") {
-  app.use(errorHandler());
-}
-
-app.listen(app.get("port"), () => {
+app.listen(app.get('port'), () => {
   // eslint-disable-next-line no-console
-  console.log(`listening on *:${app.get("port")} in ${app.get("env")} mode`);
+  console.log(`listening on *:${app.get('port')} in ${app.get('env')} mode`);
 });

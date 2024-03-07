@@ -1,8 +1,8 @@
 class APIERROR extends Error {
-  constructor(message, statusCode, body) {
-    super(message || "Something Went Wrong");
-    this.statusCode = statusCode || 500;
-    this.body = body || {};
+  constructor(message = 'Something Went Wrong', statusCode = 500, body = {}) {
+    super(message);
+    this.statusCode = statusCode;
+    this.body = body;
   }
 }
 

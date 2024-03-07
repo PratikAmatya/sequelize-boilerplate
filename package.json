@@ -1,7 +1,7 @@
 {
-  "name": "gym-management-api",
+  "name": "sequelize-boilerplate",
   "version": "1.0.0",
-  "description": "API for gym management",
+  "description": "Sequelize Boilerplate",
   "main": "app.js",
   "scripts": {
     "start": "nodemon server/app.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/PratikAmatya/oks-foundation-api.git"
+    "url": "git+https://github.com/PratikAmatya/sequelize-boilerplate"
   },
   "keywords": [
     "API"
@@ -25,20 +25,21 @@
     "dotenv": "^10.0.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
-    "http-status": "^1.5.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.3",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
-    "rotating-file-stream": "^3.0.2",
     "sequelize": "^6.12.0-alpha.1",
     "sequelize-cli": "^6.3.0",
     "uuid": "^8.3.2"
   },
   "bugs": {
-    "url": "https://gitlab.com/PratikAmatya/oks-foundation-api/issues"
+    "url": "https://github.com/PratikAmatya/sequelize-boilerplate/issues"
   },
-  "homepage": "https://gitlab.com/PratikAmatya/oks-foundation-api#readme"
+  "homepage": "https://github.com/PratikAmatya/sequelize-boilerplate#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
 }

@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 /* Primary App Routes. */
 app.get('/', (_req, res) => {
-  res.status(httpStatus.OK).json({
+  res.status(200).json({
     data: {
       message: 'API endpoints for .',
     },
